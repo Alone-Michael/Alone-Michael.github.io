@@ -6,7 +6,7 @@ author: Eric
 
 使用vscode编写文档时不能实时预览自己的文件样式，帮你解决
 
-## 一、安装插件
+# 一、安装插件
 
 ```
 vscodo 打开插件安装输入 markdown all in one
@@ -14,7 +14,7 @@ vscodo 打开插件安装输入 markdown all in one
 
 ![](/images/vscode-1.png)
 
-## 二、打开Markdown文件实现预览
+# 二、打开Markdown文件实现预览
 
 ```
 - 通过ctrl+shift+p打开vscode配置

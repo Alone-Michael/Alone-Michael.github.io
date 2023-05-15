@@ -18,7 +18,7 @@ author: Eric
 
 # 二、代码实现
 
-## 1.locationWatcher.js
+### 1.locationWatcher.js
 
 > 定位工具类locationWatcher.js：
 
@@ -110,7 +110,7 @@ export default {
 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283
 ```
 
-## 2.页面引用
+### 2.页面引用
 
 代码如下（示例）：
 
@@ -154,7 +154,7 @@ export default {
 </script>
 ```
 
-## 运行结果
+### 运行结果
 
 ![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57bd5762162c452b89ef816e8c3742e7~tplv-k3u1fbpfcp-zoom-1.image)
 
