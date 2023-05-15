@@ -1,6 +1,5 @@
 ---
 title: Markdown使用说明
-date: 2023-04-24 17:30:00
 tags: Eric的博客
 author: Eric
 ---
