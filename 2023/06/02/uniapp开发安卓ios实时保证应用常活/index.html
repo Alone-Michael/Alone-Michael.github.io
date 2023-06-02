@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前言 uniapp开发app端时候，某些业务场景需求：在后台不间断（间隔一定时间）向服务器发送用户定位信息，不管页面是否关闭，app是否处于前后台，发送位置信息功能必须持续，直到某一个页面操作行为触发事件才停下来。   一、核心api 开启定位 plus.geolocation.watchPosition(fn)关闭定位 plus.geolocation.clearWatch(id)  二、代码实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uniapp开发安卓ios实时保证应用常活">
+<meta property="og:url" content="http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/index.html">
+<meta property="og:site_name" content="Eric的博客">
+<meta property="og:description" content="前言 uniapp开发app端时候，某些业务场景需求：在后台不间断（间隔一定时间）向服务器发送用户定位信息，不管页面是否关闭，app是否处于前后台，发送位置信息功能必须持续，直到某一个页面操作行为触发事件才停下来。   一、核心api 开启定位 plus.geolocation.watchPosition(fn)关闭定位 plus.geolocation.clearWatch(id)  二、代码实">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57bd5762162c452b89ef816e8c3742e7~tplv-k3u1fbpfcp-zoom-1.image">
+<meta property="article:published_time" content="2023-06-02T03:37:35.666Z">
+<meta property="article:modified_time" content="2023-06-02T03:37:35.666Z">
+<meta property="article:author" content="Eric">
+<meta property="article:tag" content="Eric的博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57bd5762162c452b89ef816e8c3742e7~tplv-k3u1fbpfcp-zoom-1.image">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>uniapp开发安卓ios实时保证应用常活</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Alone-Michael">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/06/02/%E4%BD%BF%E7%94%A8vscode%E5%BC%80%E5%8F%91%E5%AE%9E%E6%97%B6%E9%A2%84%E8%A7%88markdown/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&text=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&is_video=false&description=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uniapp开发安卓ios实时保证应用常活&body=Check out this article: http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&name=uniapp开发安卓ios实时保证应用常活&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&t=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83api"><span class="toc-number">2.</span> <span class="toc-text">一、核心api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">二、代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-locationWatcher-js"><span class="toc-number">3.0.1.</span> <span class="toc-text">1.locationWatcher.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A1%B5%E9%9D%A2%E5%BC%95%E7%94%A8"><span class="toc-number">3.0.2.</span> <span class="toc-text">2.页面引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">3.0.3.</span> <span class="toc-text">运行结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">三、注意事项</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        uniapp开发安卓ios实时保证应用常活
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Eric</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-02T03:37:35.666Z" class="dt-published" itemprop="datePublished">2023-06-02</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="p-category" href="/tags/Eric%E7%9A%84%E5%8D%9A%E5%AE%A2/" rel="tag">Eric的博客</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=uniapp%E5%BC%80%E5%8F%91app&spm=1001.2101.3001.7020">uniapp开发app</a>端时候，某些业务场景需求：在后台不间断（间隔一定时间）向服务器发送用户定位信息，不管页面是否关闭，app是否处于前后台，发送位置信息功能必须持续，直到某一个页面操作行为触发事件才停下来。</p>
+</blockquote>
+<hr>
+<h1 id="一、核心api"><a href="#一、核心api" class="headerlink" title="一、核心api"></a>一、核心api</h1><blockquote>
+<p>开启定位 plus.geolocation.watchPosition(fn)<br>关闭定位 plus.geolocation.clearWatch(id)</p>
+</blockquote>
+<h1 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h1><h3 id="1-locationWatcher-js"><a href="#1-locationWatcher-js" class="headerlink" title="1.locationWatcher.js"></a>1.locationWatcher.js</h3><blockquote>
+<p>定位工具类locationWatcher.js：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line"> <span class="comment">//检测是否开启系统定位权限</span></span><br><span class="line"> <span class="title function_">hasLocationPermission</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> system = uni.<span class="title function_">getSystemInfoSync</span>();</span><br><span class="line">  <span class="keyword">if</span> (system.<span class="property">platform</span> === <span class="string">&#x27;android&#x27;</span>) &#123; <span class="comment">//安卓</span></span><br><span class="line">   <span class="keyword">let</span> context = plus.<span class="property">android</span>.importClass(<span class="string">&quot;android.content.Context&quot;</span>);</span><br><span class="line">   <span class="keyword">let</span> locationManager = plus.<span class="property">android</span>.importClass(<span class="string">&quot;android.location.LocationManager&quot;</span>);</span><br><span class="line">   <span class="keyword">let</span> main = plus.<span class="property">android</span>.<span class="title function_">runtimeMainActivity</span>();</span><br><span class="line">   <span class="keyword">let</span> service = main.<span class="title function_">getSystemService</span>(context.<span class="property">LOCATION_SERVICE</span>);</span><br><span class="line">   <span class="comment">//已开启系统定位服务功能</span></span><br><span class="line">   <span class="keyword">if</span> (service.<span class="title function_">isProviderEnabled</span>(locationManager.<span class="property">GPS_PROVIDER</span>)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">   <span class="keyword">else</span> &#123; <span class="comment">//未开启引导开启</span></span><br><span class="line">    uni.<span class="title function_">showModal</span>(&#123;</span><br><span class="line">     <span class="attr">title</span>: <span class="string">&#x27;友情提示&#x27;</span>,</span><br><span class="line">     <span class="attr">content</span>: <span class="string">&#x27;请开启位置服务功能&#x27;</span>,</span><br><span class="line">     <span class="attr">success</span>: <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (e.<span class="property">confirm</span>) &#123;</span><br><span class="line">       <span class="comment">//打开手机系统gps定位设置页面</span></span><br><span class="line">       <span class="keyword">let</span> <span class="title class_">Intent</span> = plus.<span class="property">android</span>.importClass(<span class="string">&#x27;android.content.Intent&#x27;</span>);</span><br><span class="line">       <span class="keyword">let</span> <span class="title class_">Settings</span> = plus.<span class="property">android</span>.importClass(<span class="string">&#x27;android.provider.Settings&#x27;</span>);</span><br><span class="line">       <span class="keyword">let</span> intent = <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="title class_">Settings</span>.<span class="property">ACTION_LOCATION_SOURCE_SETTINGS</span>);</span><br><span class="line">       main.<span class="title function_">startActivity</span>(intent);</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (system.<span class="property">platform</span> === <span class="string">&#x27;ios&#x27;</span>) &#123; <span class="comment">//ios</span></span><br><span class="line">   <span class="keyword">let</span> cllocationManger = plus.<span class="property">ios</span>.<span class="keyword">import</span>(<span class="string">&quot;CLLocationManager&quot;</span>);</span><br><span class="line">   <span class="keyword">let</span> enable = cllocationManger.<span class="title function_">locationServicesEnabled</span>();</span><br><span class="line">   <span class="keyword">let</span> status = cllocationManger.<span class="title function_">authorizationStatus</span>();</span><br><span class="line">   plus.<span class="property">ios</span>.<span class="title function_">deleteObject</span>(cllocationManger);</span><br><span class="line">   <span class="keyword">if</span> (enable &amp;&amp; status != <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">//已开启定位功能</span></span><br><span class="line">   <span class="keyword">else</span> &#123;</span><br><span class="line">    uni.<span class="title function_">showModal</span>(&#123;</span><br><span class="line">     <span class="attr">title</span>: <span class="string">&#x27;友情提示&#x27;</span>,</span><br><span class="line">     <span class="attr">content</span>: <span class="string">&#x27;请前往设置-定位服务打开定位服务功能&#x27;</span>,</span><br><span class="line">     <span class="attr">success</span>: <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (e.<span class="property">confirm</span>) &#123;</span><br><span class="line">       <span class="keyword">let</span> <span class="title class_">UIApplication</span> = plus.<span class="property">ios</span>.<span class="keyword">import</span>(<span class="string">&quot;UIApplication&quot;</span>);</span><br><span class="line">       <span class="keyword">let</span> application = <span class="title class_">UIApplication</span>.<span class="title function_">sharedApplication</span>();</span><br><span class="line">       <span class="keyword">let</span> <span class="variable constant_">NSURL</span> = plus.<span class="property">ios</span>.<span class="keyword">import</span>(<span class="string">&quot;NSURL&quot;</span>);</span><br><span class="line">       <span class="keyword">let</span> setting = <span class="variable constant_">NSURL</span>.<span class="title class_">URLWithString</span>(<span class="string">&quot;app-settings:&quot;</span>);</span><br><span class="line">       application.<span class="title function_">openURL</span>(setting);</span><br><span class="line">       plus.<span class="property">ios</span>.<span class="title function_">deleteObject</span>(setting);</span><br><span class="line">       plus.<span class="property">ios</span>.<span class="title function_">deleteObject</span>(<span class="variable constant_">NSURL</span>);</span><br><span class="line">       plus.<span class="property">ios</span>.<span class="title function_">deleteObject</span>(application);</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="comment">/**开启后台持续获取定位功能</span></span><br><span class="line"><span class="comment">  * successCallBack:成功回调函数</span></span><br><span class="line"><span class="comment">  *failCallBack:失败回调函数 </span></span><br><span class="line"><span class="comment">  *maximumAge：获取定位间隔时间</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="title function_">startLocationService</span>(<span class="params"> successCallBack=()=&gt;&#123;&#125;,failCallBack=()=&gt;&#123;&#125;,maximumAge=<span class="number">60</span>*<span class="number">1000</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="title function_">hasLocationPermission</span>()) &#123; <span class="comment">//有定位权限</span></span><br><span class="line">   <span class="keyword">let</span> locationWatcherId = plus.<span class="property">geolocation</span>.<span class="title function_">watchPosition</span>(<span class="function">(<span class="params">position</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">successCallBack</span>(&#123;</span><br><span class="line">     locationWatcherId,</span><br><span class="line">     <span class="attr">position</span>:position.<span class="property">coords</span></span><br><span class="line">    &#125;)</span><br><span class="line">   &#125;, <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e, <span class="string">&#x27;定位失败&#x27;</span>);</span><br><span class="line">    <span class="title function_">failCallBack</span>(e)</span><br><span class="line">   &#125;, &#123;</span><br><span class="line">    maximumAge, <span class="comment">//获取位置间隔时间</span></span><br><span class="line">   &#125;);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="comment">//关闭定位功能</span></span><br><span class="line"> <span class="title function_">closeLocationService</span>(<span class="params">locationWatcherId</span>) &#123;<span class="comment">//locationWatcherId:开启步骤生成的监听器id</span></span><br><span class="line">  plus.<span class="property">geolocation</span>.<span class="title function_">clearWatch</span>(locationWatcherId)</span><br><span class="line"> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-页面引用"><a href="#2-页面引用" class="headerlink" title="2.页面引用"></a>2.页面引用</h3><p>代码如下（示例）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line"> <span class="language-xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;open&quot;</span>&gt;</span>开启<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;close&quot;</span>&gt;</span>关闭<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"> <span class="keyword">import</span> locationWatcher <span class="keyword">from</span> <span class="string">&#x27;./locationWatcher.js&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"> <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   <span class="keyword">return</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="attr">locationWatcherId</span>:<span class="string">&#x27;&#x27;</span>,<span class="comment">//监听器id</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="attr">maximumAge</span>: <span class="number">10</span> * <span class="number">1000</span><span class="comment">//间隔时间10s</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="attr">methods</span>: &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   <span class="comment">//开启定位功能</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">         <span class="title function_">open</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    locationWatcher.<span class="title function_">startLocationService</span>(<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">     <span class="keyword">let</span> &#123;latitude,longitude&#125;=e.<span class="property">position</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`当前位置，经度<span class="subst">$&#123;longitude&#125;</span>,纬度<span class="subst">$&#123;latitude&#125;</span>`</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">     <span class="keyword">if</span>(!<span class="variable language_">this</span>.<span class="property">locationWatcherId</span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="variable language_">this</span>.<span class="property">locationWatcherId</span>=e.<span class="property">locationWatcherId</span><span class="comment">//举例保存到data，实际可以缓存到全局</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">     &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125;,<span class="function">(<span class="params">e</span>)=&gt;</span>&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">     <span class="variable language_">console</span>.<span class="title function_">log</span>(e,<span class="string">&#x27;定位失败&#x27;</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125;,<span class="variable language_">this</span>.<span class="property">maximumAge</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   &#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   <span class="comment">//关闭定位</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   <span class="title function_">close</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="variable language_">this</span>.<span class="property">locationWatcherId</span>&amp;&amp;locationWatcher.<span class="title function_">closeLocationService</span>(<span class="variable language_">this</span>.<span class="property">locationWatcherId</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">   &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"> &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57bd5762162c452b89ef816e8c3742e7~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<hr>
+<h1 id="三、注意事项"><a href="#三、注意事项" class="headerlink" title="三、注意事项"></a>三、注意事项</h1><blockquote>
+<p>1.定位功能需要引入地图appkey，申请百度或高德地图key,在manifest.json-APP模块-Maps配置<br>2.locationWatcherId实际开发需要全局缓存，在需要关闭定位功能地方调用<br>3.定位功能跟app生命周期一致，后台app进程被杀死或完全退出app功能停止<br>4.定位功能授权弹窗必须选择允许</p>
+</blockquote>
+
+  </div>
+  <div>
+    <a href="https://github.com/Alone-Michael/Alone-Michael.github.io/edit/myblog/source/_posts/uniapp开发安卓ios实时保证应用常活.md" target="_blank">在线编辑</a>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/Alone-Michael">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83api"><span class="toc-number">2.</span> <span class="toc-text">一、核心api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">二、代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-locationWatcher-js"><span class="toc-number">3.0.1.</span> <span class="toc-text">1.locationWatcher.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A1%B5%E9%9D%A2%E5%BC%95%E7%94%A8"><span class="toc-number">3.0.2.</span> <span class="toc-text">2.页面引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">3.0.3.</span> <span class="toc-text">运行结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">三、注意事项</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&text=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&is_video=false&description=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uniapp开发安卓ios实时保证应用常活&body=Check out this article: http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&title=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&name=uniapp开发安卓ios实时保证应用常活&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/&t=uniapp开发安卓ios实时保证应用常活"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Eric
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Alone-Michael">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

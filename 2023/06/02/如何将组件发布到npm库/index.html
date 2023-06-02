@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="发布一个自己的组件到npm 每天我们都在使用组件开发，但是如何发布一个我们自己的组件呢？go~~~   搭建发布环境  下载node（http:&#x2F;&#x2F;nodejs.cn&#x2F;download&#x2F;） 下载vue-cli（npm install  @vue&#x2F;cli）   创建一个vue项目（ vue create myui ）  修改默认文件夹src为examples  新建一个packages文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将组件发布到npm库">
+<meta property="og:url" content="http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/index.html">
+<meta property="og:site_name" content="Eric的博客">
+<meta property="og:description" content="发布一个自己的组件到npm 每天我们都在使用组件开发，但是如何发布一个我们自己的组件呢？go~~~   搭建发布环境  下载node（http:&#x2F;&#x2F;nodejs.cn&#x2F;download&#x2F;） 下载vue-cli（npm install  @vue&#x2F;cli）   创建一个vue项目（ vue create myui ）  修改默认文件夹src为examples  新建一个packages文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-1.png">
+<meta property="og:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-2.png">
+<meta property="og:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-3.png">
+<meta property="og:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-4.png">
+<meta property="og:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-5.png">
+<meta property="og:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-6.png">
+<meta property="article:published_time" content="2023-06-02T03:37:35.666Z">
+<meta property="article:modified_time" content="2023-06-02T03:37:35.666Z">
+<meta property="article:author" content="Eric">
+<meta property="article:tag" content="Eric的博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>如何将组件发布到npm库</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Alone-Michael">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2023/06/02/%E5%9B%BD%E9%99%85%E6%89%8B%E6%9C%BA%E5%8F%B7%EF%BC%88%E5%8C%BA%E5%8F%B7%E9%80%89%E6%8B%A9%EF%BC%89/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/06/02/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%9B%B4%E6%92%AD%E5%8A%9F%E8%83%BD%E6%B5%81%E7%A8%8B/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&text=如何将组件发布到npm库"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&is_video=false&description=如何将组件发布到npm库"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=如何将组件发布到npm库&body=Check out this article: http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&name=如何将组件发布到npm库&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&t=如何将组件发布到npm库"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BB%84%E4%BB%B6%E5%88%B0npm"><span class="toc-number">1.</span> <span class="toc-text">发布一个自己的组件到npm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E7%BC%96%E5%86%99%E7%BB%84%E4%BB%B6%E4%BB%A3%E7%A0%81"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、 编写组件代码</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        如何将组件发布到npm库
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Eric</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-02T03:37:35.666Z" class="dt-published" itemprop="datePublished">2023-06-02</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="p-category" href="/tags/Eric%E7%9A%84%E5%8D%9A%E5%AE%A2/" rel="tag">Eric的博客</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="发布一个自己的组件到npm"><a href="#发布一个自己的组件到npm" class="headerlink" title="发布一个自己的组件到npm"></a>发布一个自己的组件到npm</h1><blockquote>
+<p>每天我们都在使用组件开发，但是如何发布一个我们自己的组件呢？<br>go~~~</p>
+</blockquote>
+<ol>
+<li><p>搭建发布环境</p>
+<ul>
+<li>下载node（<a target="_blank" rel="noopener" href="http://nodejs.cn/download/%EF%BC%89">http://nodejs.cn/download/）</a></li>
+<li>下载vue-cli（npm install  @vue&#x2F;cli）</li>
+</ul>
+</li>
+<li><p>创建一个vue项目（ vue create myui ）</p>
+</li>
+<li><p>修改默认文件夹src为examples</p>
+</li>
+<li><p>新建一个packages文件夹</p>
+</li>
+<li><p>修改vue.config.js文件<br><img src="/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-1.png" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+<h3 id="一、-编写组件代码"><a href="#一、-编写组件代码" class="headerlink" title="一、 编写组件代码"></a>一、 编写组件代码</h3><ul>
+<li><p>先新建一个简单的button组件，</p>
+</li>
+<li><p>Packages文件夹下新建一个组件文件夹和入口文件index.js<br><img src="/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-2.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>然后srcs文件夹下存放组件源代码<br><img src="/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-3.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>在button下的index.js l里编写如下代码 作为vue组件的安装（详细文档可以看vue官网的组件篇）<br><img src="/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-4.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>接下来在packages的入口文件中导入组件并安装导出<br><img src="/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-5.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>组件编写完毕 进入packages文件夹下 实例化一个package.json（npm init -y）<br><img src="/images/%E5%8F%91%E5%B8%83npm%E5%BA%93/1-6.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>name：包名，version：版本号，description：组件描述，main:入口文件</li>
+</ul>
+</li>
+<li><p>登录npm官网（<a target="_blank" rel="noopener" href="https://www.npmjs.com)/">https://www.npmjs.com）</a></p>
+<ul>
+<li>没有账号新注册一个</li>
+<li>切换到npm官方源<ul>
+<li>查看npm当前源（ npm config get registry 或者 npm config list ）</li>
+<li>设置回原本的源，用来发布npm包（ npm config set registry <a target="_blank" rel="noopener" href="https://registry.npmjs.org/">https://registry.npmjs.org/</a> ）</li>
+<li>设置为淘宝镜像（npm config set registry <a target="_blank" rel="noopener" href="https://registry.npm.taobao.org)/">https://registry.npm.taobao.org）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>首次需要设置用户名密码绑定npm</p>
+<ul>
+<li>npm adduser ( 输入改行密令 会让你绑定自己的账号 按提示输入 )</li>
+<li>邮箱认证（ 点击npm官网头像选择账户，点击2FA认证）<br> <em><strong>注意：认证需要下载一个authenticator应用程序（问我要）</strong></em></li>
+<li>切换到要发布的包（ cd packages ）</li>
+<li>执行发布密令（ npm publish ）</li>
+</ul>
+</li>
+<li><p>返回npm官网查看发布是否成功</p>
+</li>
+<li><p>发布过程中容易出现的错误 npm adduser &#x2F; npm publish 报错：</p>
+<blockquote>
+<p> <a href="%EF%81%B5%09https://blog.csdn.net/meteorsshower2013/article/details/121957217?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-1.pc_relevant_default&spm=1001.2101.3001.4242.2&utm_relevant_index=4%EF%BC%89">https://blog.csdn.net/meteorsshower2013/article/details/121957217?utm_medium&#x3D;distribute.pc_relevant.none-task-blog-2<del>default</del>baidujs_title~default-1.pc_relevant_default&amp;spm&#x3D;1001.2101.3001.4242.2&amp;utm_relevant_index&#x3D;4）</a></p>
+<p> Npm双因素身份认证（2FA）：<br> <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000041025567">https://segmentfault.com/a/1190000041025567</a></p>
+</blockquote>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <a href="https://github.com/Alone-Michael/Alone-Michael.github.io/edit/myblog/source/_posts/如何将组件发布到npm库.md" target="_blank">在线编辑</a>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/Alone-Michael">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BB%84%E4%BB%B6%E5%88%B0npm"><span class="toc-number">1.</span> <span class="toc-text">发布一个自己的组件到npm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E7%BC%96%E5%86%99%E7%BB%84%E4%BB%B6%E4%BB%A3%E7%A0%81"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、 编写组件代码</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&text=如何将组件发布到npm库"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&is_video=false&description=如何将组件发布到npm库"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=如何将组件发布到npm库&body=Check out this article: http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&title=如何将组件发布到npm库"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&name=如何将组件发布到npm库&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/02/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B8%83%E5%88%B0npm%E5%BA%93/&t=如何将组件发布到npm库"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Eric
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Alone-Michael">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
