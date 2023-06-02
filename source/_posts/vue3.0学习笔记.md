@@ -1,7 +1,6 @@
 ---
 title: Vue3.0学习笔记（持续更新）
 tags: Eric的博客
-date: 2023-5-17
 author: Eric
 ---
 

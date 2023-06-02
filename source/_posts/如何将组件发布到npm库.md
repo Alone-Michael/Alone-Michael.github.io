@@ -1,6 +1,7 @@
 ---
 title: 如何将组件发布到npm库
 tags: Eric的博客
+date: 2023-2-17
 author: Eric
 ---
 # 发布一个自己的组件到npm

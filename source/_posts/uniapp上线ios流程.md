@@ -1,8 +1,7 @@
 ---
-layout:
-  - post
 title: uniapp上线ios流程
 tags: Eric的博客
+date: 2023-5-9
 author: Eric
 ---
 
