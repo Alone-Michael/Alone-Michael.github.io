@@ -9,12 +9,12 @@
     <meta name="description" content="前言使用uniapp开发多端系统，总是绕不过上线安卓和ios，安卓端的HBuilderX&#x2F;HBuilder会提供我们免费的证书打包测试，但是当我们要测试ios时就比较麻烦了，踩坑之后记录下自己上线iOS的一些流程。  一、pandas是什么？示例：pandas 是基于NumPy 的一种工具，该工具是为了解决数据分析任务而创建的。 二、使用步骤1.引入库代码如下（示例）： 1234567">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uniapp上线ios流程">
-<meta property="og:url" content="http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:url" content="http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Eric的博客">
 <meta property="og:description" content="前言使用uniapp开发多端系统，总是绕不过上线安卓和ios，安卓端的HBuilderX&#x2F;HBuilder会提供我们免费的证书打包测试，但是当我们要测试ios时就比较麻烦了，踩坑之后记录下自己上线iOS的一些流程。  一、pandas是什么？示例：pandas 是基于NumPy 的一种工具，该工具是为了解决数据分析任务而创建的。 二、使用步骤1.引入库代码如下（示例）： 1234567">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-02T03:37:35.666Z">
-<meta property="article:modified_time" content="2023-06-02T03:37:35.666Z">
+<meta property="article:published_time" content="2023-05-09T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-02T03:48:49.699Z">
 <meta property="article:author" content="Eric">
 <meta property="article:tag" content="Eric的博客">
 <meta name="twitter:card" content="summary">
@@ -82,10 +82,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2023/06/02/markdown%E8%AF%AD%E6%B3%95%E6%96%87%E4%BB%B6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2023/05/17/%E5%B0%81%E8%A3%85Element%E4%B8%8B%E6%8B%89%E5%88%97%E8%A1%A8%E6%B4%BB%E5%8A%A8%E8%A7%A6%E5%8F%91%E5%88%86%E9%A1%B5/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="下一篇" href="/2023/06/02/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2023/03/10/uniapp%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93ios%E5%AE%9E%E6%97%B6%E4%BF%9D%E8%AF%81%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -98,17 +98,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&text=uniapp上线ios流程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&is_video=false&description=uniapp上线ios流程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=uniapp上线ios流程&body=Check out this article: http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&name=uniapp上线ios流程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&t=uniapp上线ios流程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&text=uniapp上线ios流程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&is_video=false&description=uniapp上线ios流程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uniapp上线ios流程&body=Check out this article: http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&name=uniapp上线ios流程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&t=uniapp上线ios流程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -137,7 +137,7 @@
       
     <div class="postdate">
       
-        <time datetime="2023-06-02T03:37:35.666Z" class="dt-published" itemprop="datePublished">2023-06-02</time>
+        <time datetime="2023-05-09T00:00:00.000Z" class="dt-published" itemprop="datePublished">2023-05-09</time>
         
       
     </div>
@@ -203,17 +203,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&text=uniapp上线ios流程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&is_video=false&description=uniapp上线ios流程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=uniapp上线ios流程&body=Check out this article: http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&name=uniapp上线ios流程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/02/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&t=uniapp上线ios流程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&text=uniapp上线ios流程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&is_video=false&description=uniapp上线ios流程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uniapp上线ios流程&body=Check out this article: http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&title=uniapp上线ios流程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&name=uniapp上线ios流程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/09/uniapp%E4%B8%8A%E7%BA%BFios%E6%B5%81%E7%A8%8B/&t=uniapp上线ios流程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
