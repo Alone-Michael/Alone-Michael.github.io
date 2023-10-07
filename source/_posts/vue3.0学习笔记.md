@@ -104,7 +104,7 @@ export default {
 
 2. shallowRef对比ref
 
-- ref底层相当于地涌了一次reactive,并且使用value包裹了创建的变量,所以在使用过程中用ref声明的变量我们需要通过var.value的方式去使用而reactive 声明的不需要
+- ref底层相当于多用了一次reactive,并且使用value包裹了创建的变量,所以在使用过程中用ref声明的变量我们需要通过var.value的方式去使用而reactive 声明的不需要
 
 ```js
 const status = ref(false)
