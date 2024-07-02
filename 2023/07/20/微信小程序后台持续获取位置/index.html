@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>微信小程序后台持续获取位置信息 | Eric的博客</title><meta name="author" content="Eric"><meta name="copyright" content="Eric"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="前言 最近使用uniapp开发小程序开发中遇到一个需求，需要小程序持续定位，然后向后台发送实时位置，并且保证微信切换到后台也要持续上传，经过一番文档查询找到解决办法。  一、申请开通相关接口  进入小程序后台管理页面找到开发-开发管理-接口设置，进行申请 一般小程序都会申请开通 wx.getLocation 这个接口，然后我们会在第一次进入小程序时弹出让我们授权位置信息获取。 但是为了实现微信出在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序后台持续获取位置信息">
+<meta property="og:url" content="http://example.com/2023/07/20/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E6%8C%81%E7%BB%AD%E8%8E%B7%E5%8F%96%E4%BD%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Eric的博客">
+<meta property="og:description" content="前言 最近使用uniapp开发小程序开发中遇到一个需求，需要小程序持续定位，然后向后台发送实时位置，并且保证微信切换到后台也要持续上传，经过一番文档查询找到解决办法。  一、申请开通相关接口  进入小程序后台管理页面找到开发-开发管理-接口设置，进行申请 一般小程序都会申请开通 wx.getLocation 这个接口，然后我们会在第一次进入小程序时弹出让我们授权位置信息获取。 但是为了实现微信出在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.20988.xyz/2024-05-29/1716947214-777607-2.jpg">
+<meta property="article:published_time" content="2023-07-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-02T15:02:51.228Z">
+<meta property="article:author" content="Eric">
+<meta property="article:tag" content="Eric的博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.20988.xyz/2024-05-29/1716947214-777607-2.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/07/20/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E6%8C%81%E7%BB%AD%E8%8E%B7%E5%8F%96%E4%BD%8D%E7%BD%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/Eric" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '微信小程序后台持续获取位置信息',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 23:02:51'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/Avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.20988.xyz/2024-05-29/1716947214-777607-2.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Eric的博客"><span class="site-name">Eric的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">微信小程序后台持续获取位置信息</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-19T16:00:00.000Z" title="发表于 2023-07-20 00:00:00">2023-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T15:02:51.228Z" title="更新于 2024-07-02 23:02:51">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="微信小程序后台持续获取位置信息"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a><a href=""></a><a href=""></a>前言</h1><blockquote>
+<p>最近使用uniapp开发小程序开发中遇到一个需求，需要小程序持续定位，然后向后台发送实时位置，并且保证微信切换到后台也要持续上传，经过一番文档查询找到解决办法。</p>
+</blockquote>
+<h3 id="一、申请开通相关接口"><a href="#一、申请开通相关接口" class="headerlink" title="一、申请开通相关接口"></a>一、申请开通相关接口</h3><blockquote>
+<ul>
+<li>进入小程序后台管理页面找到开发-开发管理-接口设置，进行申请</li>
+<li>一般小程序都会申请开通 wx.getLocation 这个接口，然后我们会在第一次进入小程序时弹出让我们授权位置信息获取。</li>
+<li>但是为了实现微信出在后台时我们还需要额外申请其他几个接口，</li>
+</ul>
+<ol>
+<li><p>wx.onLocationChange  用来监听实时地理位置变化事件</p>
+</li>
+<li><p>wx.startLocationUpdate 开启小程序进入前台时接受位置信息（如果开通前后台的话，一般会用的前后台的，建议开通，服务其他页面需求）</p>
+</li>
+<li><p>wx.startLocationUpdateBackground 开启小程序进入前后台时均接受位置信息</p>
+</li>
+</ol>
+<p>接口相关-官方文档：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdateBackground.html">位置信息</a> 可以具体查看各接口的使用方法和应用场景</p>
+</blockquote>
+<p><img src="/images/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB%E4%B8%8A%E4%BC%A0%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF/1-1.png" alt="配置"></p>
+<h3 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h3><blockquote>
+<p>开发前还需要进行相关配置<br>打开你的项目找到manifest.json文件,选择源码试图（如果你的编辑器是HBuilderX的情况）找到与小程序相关的配置项</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 小程序特有相关 */</span></span><br><span class="line">    <span class="string">&quot;mp-weixin&quot;</span> : &#123;</span><br><span class="line">        <span class="string">&quot;appid&quot;</span> : <span class="string">&quot;wx5c29450db720a284&quot;</span>,</span><br><span class="line">        <span class="string">&quot;setting&quot;</span> : &#123;</span><br><span class="line">            <span class="string">&quot;urlCheck&quot;</span> : <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;minified&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">            <span class="string">&quot;es6&quot;</span> : <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;postcss&quot;</span> : <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;usingComponents&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">        <span class="string">&quot;plugins&quot;</span> : &#123;&#125;,</span><br><span class="line">        <span class="string">&quot;permission&quot;</span> : &#123; <span class="comment">//小程序接口权限相关设置</span></span><br><span class="line">            <span class="string">&quot;scope.userLocation&quot;</span> : &#123; <span class="comment">//获取用户位置信息的权限，需要配置</span></span><br><span class="line">                <span class="string">&quot;desc&quot;</span> : <span class="string">&quot;获取用户位置，用于司机签到&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;requiredBackgroundModes&quot;</span> : [ <span class="string">&quot;location&quot;</span> ], <span class="comment">//申明需要后台运行的能力，类型为数组，目前支持audio后台音乐播放，location 后台定位</span></span><br><span class="line">        <span class="string">&quot;requiredPrivateInfos&quot;</span> : [ </span><br><span class="line">            <span class="string">&quot;getLocation&quot;</span>,</span><br><span class="line">            <span class="string">&quot;startLocationUpdate&quot;</span>,</span><br><span class="line">            <span class="string">&quot;onLocationChange&quot;</span>,</span><br><span class="line">            <span class="string">&quot;startLocationUpdateBackground&quot;</span></span><br><span class="line">        ], <span class="comment">//在代码中使用申请的地理位置接口 需要在此配置，未申请接口需先申请开通</span></span><br><span class="line">        <span class="string">&quot;lazyCodeLoading&quot;</span> : <span class="string">&quot;requiredComponents&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>相关配置配置完成后，打开小程序当你获取位置信息时进入设置页面会有三个选择</p>
+<ol>
+<li>不允许</li>
+<li>使用小程序时允许</li>
+<li>使用小程序时和离开后<br><img src="/images/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BA%94%E7%94%A8%E5%B8%B8%E6%B4%BB%E4%B8%8A%E4%BC%A0%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF/1-2.jpg" alt="位置设置选择"></li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>如果没有第三个选项，需排查是否申请接口，配置文件中是否配置正确</strong></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取微信授权弹框</span></span><br><span class="line"><span class="title function_">getWxLocation</span>(<span class="params"></span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;定位中...&quot;</span>);</span><br><span class="line">  <span class="comment">// 开启定位追踪</span></span><br><span class="line">  <span class="comment">// uni.startLocationUpdateBackground 后台获取位置接口</span></span><br><span class="line">  uni.<span class="title function_">startLocationUpdateBackground</span>(&#123;</span><br><span class="line">   <span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;开启定位追踪&quot;</span>, res);</span><br><span class="line">    <span class="comment">// 监听位置变化</span></span><br><span class="line">    uni.<span class="title function_">onLocationChange</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(data, <span class="string">&#x27;位置变化上传&#x27;</span>);</span><br><span class="line">     <span class="comment">//获取当前时间</span></span><br><span class="line">     <span class="keyword">var</span> currentTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">     <span class="comment">//获取上次执行的时间</span></span><br><span class="line">     <span class="keyword">var</span> oldTime = uni.<span class="title function_">getStorageSync</span>(<span class="string">&quot;oldTime&quot;</span>);</span><br><span class="line">     <span class="comment">//判断并且间隔时间</span></span><br><span class="line">     <span class="comment">// 五分钟执行一次</span></span><br><span class="line">     <span class="keyword">if</span> (currentTime - oldTime &gt; <span class="number">1000</span> * <span class="number">60</span> * <span class="number">5</span>) &#123;</span><br><span class="line">      <span class="comment">//缓存当前执行的时间</span></span><br><span class="line">      uni.<span class="title function_">setStorageSync</span>(<span class="string">&quot;oldTime&quot;</span>, currentTime);</span><br><span class="line">      <span class="comment">// uni.showToast(&#123;title:&#x27;上传位置信息&#x27;,icon:&#x27;none&#x27;&#125;)</span></span><br><span class="line">      <span class="comment">//将位置信息上传后台的自己的代码</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">uploadLocation</span>(data);</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="title function_">resolve</span>();</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">fail</span>: <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;获取当前位置失败&quot;</span>, err);</span><br><span class="line">    <span class="title function_">reject</span>();</span><br><span class="line">   &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"> &#125;);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上传位置信息</span></span><br><span class="line"><span class="title function_">uploadLocation</span>(<span class="params">data</span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;地址&quot;</span>, data);</span><br><span class="line"> locationUtils</span><br><span class="line">  .<span class="title function_">getLocationRegeo</span>(<span class="string">`<span class="subst">$&#123;data.longitude&#125;</span>,<span class="subst">$&#123;data.latitude&#125;</span>`</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">addressInfo</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> addressComponent = addressInfo.<span class="property">addressComponent</span>;<span class="comment">//经纬度转码后信息</span></span><br><span class="line">    <span class="keyword">let</span> requestData = &#123;&#125; <span class="comment">//参数需要上传后台的参数具体根据自己的业务写</span></span><br><span class="line">    <span class="title function_">methodName</span>(requestData).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;&#125;); <span class="comment">//上传接口</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 停止获取位置信息</span></span><br><span class="line"><span class="title function_">stopUploadLocation</span>(<span class="params"></span>) &#123;</span><br><span class="line"> uni.<span class="title function_">stopLocationUpdate</span>(&#123; <span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123; &#125;, <span class="attr">fail</span>: <span class="function">(<span class="params">error</span>) =&gt;</span> &#123; &#125; &#125;);</span><br><span class="line"> uni.<span class="title function_">offLocationChange</span>();</span><br><span class="line">&#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="三、注意事项"><a href="#三、注意事项" class="headerlink" title="三、注意事项"></a>三、注意事项</h3><blockquote>
+<ol>
+<li>小程序位置信息的使用如果有特殊的应用场景或需求，必须申请相关接口否则代码中无法使用相关接口</li>
+<li>申请接口后需要在相关的配置文件中配置(HBuilderX是manifest.json文件中找到关于小程序的配置项）</li>
+<li>配置完成，相关代码实现完毕，进入小程序后选择引导用户选择第三个选项（即允许小程序在使用时和离开后都可以获取位置）</li>
+</ol>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eric</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/07/20/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E6%8C%81%E7%BB%AD%E8%8E%B7%E5%8F%96%E4%BD%8D%E7%BD%AE/">http://example.com/2023/07/20/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E6%8C%81%E7%BB%AD%E8%8E%B7%E5%8F%96%E4%BD%8D%E7%BD%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Eric的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Eric%E7%9A%84%E5%8D%9A%E5%AE%A2/">Eric的博客</a></div><div class="post_share"><div class="social-share" data-image="https://pic.20988.xyz/2024-05-29/1716947214-777607-2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/20/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%9B%B4%E6%92%AD%E5%8A%9F%E8%83%BD%E6%B5%81%E7%A8%8B/" title="小程序开发直播功能流程"><img class="cover" src="/img/3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">小程序开发直播功能流程</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/09/%E5%9B%BD%E9%99%85%E6%89%8B%E6%9C%BA%E5%8F%B7%EF%BC%88%E5%8C%BA%E5%8F%B7%E9%80%89%E6%8B%A9%EF%BC%89/" title="国际手机号（区号选择）在项目中使用"><img class="cover" src="/img/8.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">国际手机号（区号选择）在项目中使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/06/30/JS%E5%8E%9F%E7%94%9F-JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6/" title="JS原生-JS事件循环机制"><img class="cover" src="/img/13.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-30</div><div class="title">JS原生-JS事件循环机制</div></div></a></div><div><a href="/2023/01/11/30%E5%88%86%E9%92%9F%E5%AD%A6%E4%BC%9A%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91(%E5%AD%A6%E4%B9%A0)/" title="30分钟学会前端模块化开发（学习）"><img class="cover" src="https://pic.20988.xyz/2024-05-29/1716947455-652516-001-2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-11</div><div class="title">30分钟学会前端模块化开发（学习）</div></div></a></div><div><a href="/2023/10/07/Js%E5%AE%9E%E7%8E%B0%E6%89%81%E5%B9%B3%E5%8C%96%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8Ctree%E8%BD%AC%E6%8D%A2/" title="Js实现扁平化数据结构和tree转换"><img class="cover" src="/img/22.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-07</div><div class="title">Js实现扁平化数据结构和tree转换</div></div></a></div><div><a href="/2023/06/30/JS%E5%8E%9F%E7%94%9F-%E5%8E%9F%E5%9E%8B-%E5%8E%9F%E5%9E%8B%E9%93%BE/" title="JS原生-原型-原型链"><img class="cover" src="https://pic.20988.xyz/2024-05-29/1716947219-264223-4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-30</div><div class="title">JS原生-原型-原型链</div></div></a></div><div><a href="/2023/10/07/echarts%E9%AB%98%E7%BA%A7%E6%95%88%E6%9E%9C%E7%9B%B8%E5%85%B3%E7%BD%91%E7%AB%99%E7%A4%BE%E5%8C%BA/" title="Echarts高级可视化应用"><img class="cover" src="/img/1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-07</div><div class="title">Echarts高级可视化应用</div></div></a></div><div><a href="/2024/07/02/Vue3.0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" title="Vue3.0学习笔记（持续更新）"><img class="cover" src="/img/5.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-02</div><div class="title">Vue3.0学习笔记（持续更新）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/Avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Eric</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Alone-Michael/"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%94%B3%E8%AF%B7%E5%BC%80%E9%80%9A%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、申请开通相关接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.2.</span> <span class="toc-text">二、代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.0.3.</span> <span class="toc-text">三、注意事项</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/02/Vue3.0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" title="Vue3.0学习笔记（持续更新）"><img src="/img/5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue3.0学习笔记（持续更新）"/></a><div class="content"><a class="title" href="/2024/07/02/Vue3.0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" title="Vue3.0学习笔记（持续更新）">Vue3.0学习笔记（持续更新）</a><time datetime="2024-07-01T16:00:00.000Z" title="发表于 2024-07-02 00:00:00">2024-07-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/25/%E9%9D%A2%E8%AF%95/" title="面试"><img src="[&quot;https://pic.20988.xyz/2024-06-19/1718801338-318513-20240619145759.jpg&quot;,&quot;https://pic.20988.xyz/2024-05-29/1716947214-777607-2.jpg&quot;,&quot;https://pic.20988.xyz/2024-05-29/1716947219-264223-4.jpg&quot;,&quot;https://pic.20988.xyz/2024-05-29/1716947303-2181-9.jpg&quot;,&quot;https://pic.20988.xyz/2024-05-29/1716947455-652516-001-2.jpg&quot;,&quot;https://pic.20988.xyz/2024-06-03/1717377438-28416-4k.jpg&quot;,&quot;https://pic.20988.xyz/2024-06-07/1717747427-499325-bg-i3.png&quot;,&quot;https://pic.20988.xyz/2024-06-08/1717833675-823265-gondam.jpg&quot;,&quot;https://pic.20988.xyz/2024-06-08/1717833666-732541-05.png&quot;,&quot;https://pic.20988.xyz/2024-06-08/1717833691-793087-miku02.jpg&quot;]" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="面试"/></a><div class="content"><a class="title" href="/2024/06/25/%E9%9D%A2%E8%AF%95/" title="面试">面试</a><time datetime="2024-06-24T16:00:00.000Z" title="发表于 2024-06-25 00:00:00">2024-06-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/%E9%A1%B9%E7%9B%AE%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0/" title="常用的工具函数"><img src="/img/19.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常用的工具函数"/></a><div class="content"><a class="title" href="/2024/06/21/%E9%A1%B9%E7%9B%AE%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0/" title="常用的工具函数">常用的工具函数</a><time datetime="2024-06-20T16:00:00.000Z" title="发表于 2024-06-21 00:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/20/%E9%A1%B9%E7%9B%AE%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E6%A0%A1%E9%AA%8C%E6%96%B9%E6%B3%95/" title="项目常用的正则校验方法"><img src="/img/4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目常用的正则校验方法"/></a><div class="content"><a class="title" href="/2024/06/20/%E9%A1%B9%E7%9B%AE%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E6%A0%A1%E9%AA%8C%E6%96%B9%E6%B3%95/" title="项目常用的正则校验方法">项目常用的正则校验方法</a><time datetime="2024-06-19T16:00:00.000Z" title="发表于 2024-06-20 00:00:00">2024-06-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/19/vue3%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/" title="vue3核心问题总结"><img src="/img/23.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue3核心问题总结"/></a><div class="content"><a class="title" href="/2024/06/19/vue3%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/" title="vue3核心问题总结">vue3核心问题总结</a><time datetime="2024-06-18T16:00:00.000Z" title="发表于 2024-06-19 00:00:00">2024-06-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Eric</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
