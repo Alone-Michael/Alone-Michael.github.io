@@ -3,6 +3,12 @@ title: Markdown使用说明
 tags: Eric的博客
 date: 2022-11-10
 author: Eric
+comments: false
+cover: /img/14.jpg
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 使用微信公众号编辑器有一个十分头疼的问题：粘贴出来的代码，格式错乱，空间小还带行号，而且特别丑。Markdown.com.cn编辑器能够解决这个问题。

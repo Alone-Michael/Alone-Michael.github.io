@@ -3,6 +3,12 @@ title: Js实现扁平化数据结构和tree转换
 tags: Eric的博客
 date: 2023-10-7
 author: Eric
+comments: false
+cover: /img/22.jpg
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 ## 扁平化数组转tree

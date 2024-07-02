@@ -1,7 +1,20 @@
 ---
 title: Vue3.0学习笔记（持续更新）
-tags: Eric的博客
+tags: 
+ - Eric的博客
+ - 学习
+ - vue3
+category:
+ - Vue3
+ - 总结
 author: Eric
+date: 2024-7-02
+comments: false
+cover: /img/5.png
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 ### Vue 之 getCurrentInstance

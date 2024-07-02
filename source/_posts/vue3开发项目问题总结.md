@@ -3,6 +3,12 @@ title: vue3开发项目问题总结
 tags: Eric的博客
 date: 2024-3-29
 author: Eric
+comments: false
+cover: /img/24.jpg
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 ### 1. 页面标签页连续切换，弹框重复打开多次，导致浏览器崩溃，内存溢出，DOM 数增多，js 堆增多

@@ -3,6 +3,12 @@ title: JS原生-原型-原型链
 tags: Eric的博客
 date: 2023-6-30
 author: Eric
+comments: false
+cover: https://pic.20988.xyz/2024-05-29/1716947219-264223-4.jpg  
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 ### 前言

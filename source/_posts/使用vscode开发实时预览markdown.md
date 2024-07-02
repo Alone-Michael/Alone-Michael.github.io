@@ -3,6 +3,12 @@ title: 使用vscode开发时实现实时预览
 tags: Eric的博客
 date: 2023-1-12
 author: Eric
+comments: false
+cover: https://pic.20988.xyz/2024-05-29/1716947303-2181-9.jpg 
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 使用vscode编写文档时不能实时预览自己的文件样式，帮你解决

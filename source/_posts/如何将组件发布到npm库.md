@@ -3,8 +3,16 @@ title: 如何将组件发布到npm库
 tags: Eric的博客
 date: 2023-2-17
 author: Eric
+comments: false
+cover: /img/11.jpeg
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
+
 # 发布一个自己的组件到npm
+
 > 每天我们都在使用组件开发，但是如何发布一个我们自己的组件呢？
 > go~~~
 

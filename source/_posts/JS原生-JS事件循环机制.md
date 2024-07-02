@@ -3,6 +3,12 @@ title: JS原生-JS事件循环机制
 tags: Eric的博客
 date: 2023-6-30
 author: Eric
+comments: false
+cover: /img/13.jpeg
+index_enable: true #是否显示文章封面
+aside_enable: true #侧栏是否显示文章封面图s
+archives_enable: true 
+position: both #封面显示的位置# 三个值可配置left , right , both 
 ---
 
 ### JS事件循环机制
