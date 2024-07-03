@@ -1,14 +1,16 @@
 ---
 title: 前端工程化之webpack
-tags: Eric的博客
+tags:
+  - webpack
+  - js
 date: 2023-06-02
 author: Eric
 comments: false
 cover: https://pic.20988.xyz/2024-06-08/1717865110-275943-399748d8-7b9c-4f75-980e-f057b4391c9b.jpg
 index_enable: true #是否显示文章封面
 aside_enable: true #侧栏是否显示文章封面图s
-archives_enable: true 
-position: both #封面显示的位置# 三个值可配置left , right , both 
+archives_enable: true
+position: both #封面显示的位置# 三个值可配置left , right , both
 ---
 
 ![前端工程化之webpack](/images/前端工程化之webpack/1.jpg)
