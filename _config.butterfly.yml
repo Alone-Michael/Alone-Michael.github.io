@@ -240,11 +240,11 @@ aside:
     button:
       enable: true
       icon: fab fa-github
-      text: Follow Me
+      text: GitHub
       link: https://github.com/Alone-Michael/
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 交流学习才能进步
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
