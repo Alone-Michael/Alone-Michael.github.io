@@ -1,8 +1,0 @@
-{
-  "terminal.integrated.shellArgs.windows": [
-    "-Command",
-    "nvm use 18.20.8"
-  ],
-  "npm.packageManager": "npm",
-  "debug.node.autoAttach": "on"
-}
