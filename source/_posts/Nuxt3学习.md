@@ -7,7 +7,7 @@ tags:
 author: Eric
 date: 2024-8-5
 comments: false
-cover: /img/3.png
+cover: /img/v3.jpg
 index_enable: true #是否显示文章封面
 aside_enable: true #侧栏是否显示文章封面图s
 archives_enable: true

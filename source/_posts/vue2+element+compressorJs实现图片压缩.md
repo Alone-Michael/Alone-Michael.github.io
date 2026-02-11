@@ -8,7 +8,7 @@ author: Eric
 date: 2026-2-11
 comments: false
 categories: 图片压缩
-cover: https://pic.20988.xyz/2024-06-08/1717833691-793087-miku02.jpg
+cover: /img/v1.jpg
 index_enable: true #是否显示文章封面
 aside_enable: true #侧栏是否显示文章封面图s
 archives_enable: true
