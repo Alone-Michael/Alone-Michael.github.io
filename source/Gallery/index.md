@@ -3,8 +3,8 @@ title: 标签
 author: Eric
 date: 2024-7-3
 ---
-
-{% gallery %}
+<!-- 
+{% gallery %} -->
 ![](https://pic.20988.xyz/2024-06-19/1718801338-318513-20240619145759.jpg)
 ![](https://pic.20988.xyz/2024-05-29/1716947214-777607-2.jpg)
 ![](https://pic.20988.xyz/2024-05-29/1716947219-264223-4.jpg)
@@ -39,4 +39,4 @@ date: 2024-7-3
 ![](/img/v2.png)
 ![](/img/v3.png)
 ![](/img/v4.png)
-{% endgallery %}
+<!-- {% endgallery %} -->
